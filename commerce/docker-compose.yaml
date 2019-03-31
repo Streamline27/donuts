@@ -1,8 +1,8 @@
 version: '3.5'
 services:
-  commerce:
+  donuts.commerce:
     build: ./
-    image: donuts/commerce:latest
-    container_name: commerce
+    image: streamline27/commerce:latest
+    container_name: donuts.commerce
     ports:
-      - "9790:9790"pwd
+      - "9790:9790"
