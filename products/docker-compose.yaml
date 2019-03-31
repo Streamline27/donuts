@@ -2,7 +2,7 @@ version: '3.5'
 services:
   donuts.products:
     build: ./
-    image: streamline27/products:latest
+    image: streamline27/donuts.products:latest
     container_name: donuts.products
     ports:
       - "9785:9785"
