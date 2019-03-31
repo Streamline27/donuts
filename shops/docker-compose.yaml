@@ -1,0 +1,8 @@
+version: '3.5'
+services:
+  shops:
+    build: ./
+    image: donuts/shops:latest
+    container_name: shops
+    ports:
+      - "9780:9780"

@@ -1,0 +1,6 @@
+rootProject.name = 'donuts'
+include 'shops'
+include 'products'
+include 'commerce'
+include 'api'
+

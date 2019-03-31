@@ -1,0 +1,8 @@
+version: '3.5'
+services:
+  commerce:
+    build: ./
+    image: donuts/commerce:latest
+    container_name: commerce
+    ports:
+      - "9790:9790"pwd
