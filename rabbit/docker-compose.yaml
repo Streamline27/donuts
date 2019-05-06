@@ -6,3 +6,5 @@ services:
     container_name: donuts.rabbit
     ports:
       - "9010:9010"
+    environment:
+      - "spring.profiles.active=docker"
