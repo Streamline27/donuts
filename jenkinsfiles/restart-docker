@@ -13,9 +13,9 @@ node {
                        branches         : [[name: "master"]], changelog: false, poll: false]
     }
     stage('docker-compose down') {
-        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose down'"
+        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose down --rmi all'"
     }
     stage('docker-compose up') {
-        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose up >/dev/null 2>&1'"
+        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose up -d'"
     }
 }
