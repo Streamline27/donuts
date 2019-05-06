@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  donuts.shops:
+  donuts.rabbit:
     build: ./
     image: streamline27/donuts.rabbit:latest
     container_name: donuts.rabbit
