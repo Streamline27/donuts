@@ -20,7 +20,7 @@ public class MessageConsumer {
         this.dao = dao;
     }
 
-    @RabbitListener(queues = "test.queue1")
+    @RabbitListener(queues = "test.delayed-destination")
     public void receiveMessage(String text) {
         Message message = Message.builder()
                 .text(text)
