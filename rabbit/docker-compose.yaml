@@ -3,6 +3,6 @@ services:
   donuts.shops:
     build: ./
     image: streamline27/donuts.rabbit:latest
-    container_name: donuts.shops
+    container_name: donuts.rabbit
     ports:
       - "9010:9010"
