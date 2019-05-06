@@ -21,7 +21,7 @@ public class MessageController {
 
     @GetMapping("/messages/{text}")
     public String create(@PathVariable("text") String text) {
-        rabbitTemplate.convertAndSend(text);
+        rabbitTemplate.convertAndSend("test.exchange1", text);
         return "Great success";
     }
 
