@@ -1,6 +1,5 @@
 package lv.citadele.rabbit.messages;
 
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,21 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MessageController {
     private final MessageDao dao;
-    private final RabbitTemplate rabbitTemplate;
+    private final MessageProducer producer;
 
     @Autowired
-    public MessageController(MessageDao dao, RabbitTemplate rabbitTemplate) {
+    public MessageController(MessageDao dao, MessageProducer producer) {
         this.dao = dao;
-        this.rabbitTemplate = rabbitTemplate;
+        this.producer = producer;
     }
 
     @GetMapping("/messages/{text}")
     public String create(@PathVariable("text") String text) {
-        rabbitTemplate.convertAndSend("test.delay-fanout", "", text, m -> {
-            m.getMessageProperties().getHeaders().put("x-delay", 5000);
-            return m;
-        });
-
+        producer.send(text);
         return "Great success";
     }
 
