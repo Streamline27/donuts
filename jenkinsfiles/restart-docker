@@ -1,0 +1,21 @@
+def configuration = [
+        RABBIT: [
+            deployDir: '/opt/java_apps/rabbit',
+            host: '192.168.188.103'
+        ]
+]
+node {
+    def config = configuration[SERVICE]
+
+    stage('checkout') {
+        checkout scm: [$class           : 'GitSCM',
+                       userRemoteConfigs: [[url: 'https://github.com/Streamline27/donuts', credentialsId: 'Streamline27']],
+                       branches         : [[name: "master"]], changelog: false, poll: false]
+    }
+    stage('docker-compose down') {
+        ssh vladja@${config.host} '$cd {config.deployDir} && docker-compose down'
+    }
+    stage('docker-compose up') {
+        ssh vladja@${config.host} '$cd {config.deployDir} && docker-compose up &'
+    }
+}
