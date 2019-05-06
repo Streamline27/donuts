@@ -19,7 +19,11 @@ public class MessageController {
 
     @GetMapping("/messages/{text}")
     public String create(@PathVariable("text") String text) {
-        rabbitTemplate.convertAndSend("test.exchange1", "", text);
+        rabbitTemplate.convertAndSend("test.delay-fanout", "", text, m -> {
+            m.getMessageProperties().getHeaders().put("x-delay", 5000);
+            return m;
+        });
+
         return "Great success";
     }
 
