@@ -16,6 +16,6 @@ node {
         sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose down'"
     }
     stage('docker-compose up') {
-        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose up &'"
+        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose up &>/dev/null &'"
     }
 }
