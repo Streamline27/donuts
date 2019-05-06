@@ -23,11 +23,11 @@ public class MessageProducer {
 
     public void send(String text) {
         LOG.info("Sending message:[{}]", text);
-        rabbitTemplate.convertAndSend("test.delay-fanout", "", text, this::addDelayHeader);
+        rabbitTemplate.convertAndSend("test.delayed-messages", "", text, this::addDelayHeader);
     }
 
     private Message addDelayHeader(Message rabbitMsg) {
-        rabbitMsg.getMessageProperties().getHeaders().put("x-delay", MESSAGE_DELAY_MILLIS);
+        rabbitMsg.getMessageProperties().getHeaders().put("expiration", MESSAGE_DELAY_MILLIS.toString());
         return rabbitMsg;
     }
 }
