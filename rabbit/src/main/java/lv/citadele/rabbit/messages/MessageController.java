@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
-
 @RestController
 public class MessageController {
     private final MessageDao dao;
@@ -21,7 +19,7 @@ public class MessageController {
 
     @GetMapping("/messages/{text}")
     public String create(@PathVariable("text") String text) {
-        rabbitTemplate.convertAndSend("test.exchange1", text);
+        rabbitTemplate.convertAndSend("test.exchange1", "", text);
         return "Great success";
     }
 
