@@ -1,15 +1,7 @@
 def configuration = [
-        SHOPS: [
-            moduleName: 'shops'
-        ],
-        PRODUCTS: [
-            moduleName: 'products'
-        ],
-        COMMERCE: [
-            moduleName: 'commerce'
-        ],
         RABBIT: [
-            moduleName: 'rabbit'
+            moduleName: 'rabbit',
+            host: '192.168.188.103'
         ]
 ]
 node {
@@ -21,13 +13,13 @@ node {
                        branches         : [[name: "master"]], changelog: false, poll: false]
     }
     stage('build_jar') {
-        sh "./gradlew clean ${module}:bootJar"
+        sh "./gradlew clean ${config.moduleName}:bootJar"
     }
     stage('docker-compose build') {
-        sh "cd ./${module} && docker-compose build"
+        sh "cd ./${config.moduleName} && docker-compose build"
     }
     stage('docker-compose push') {
-        sh "cd ./${module} && docker-compose push"
+        sh "cd ./${config.moduleName} && docker-compose push"
     }
     stage('docker-compose stop') {
         sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose stop'"
