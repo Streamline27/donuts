@@ -1,0 +1,32 @@
+def configuration = [
+        SHOPS: [
+            moduleName: 'shops'
+        ],
+        PRODUCTS: [
+            moduleName: 'products'
+        ],
+        COMMERCE: [
+            moduleName: 'commerce'
+        ],
+        RABBIT: [
+            moduleName: 'rabbit'
+        ]
+]
+node {
+    def module = configuration[SERVICE].moduleName
+
+    stage('checkout') {
+        checkout scm: [$class           : 'GitSCM',
+                       userRemoteConfigs: [[url: 'https://github.com/Streamline27/donuts', credentialsId: 'Streamline27']],
+                       branches         : [[name: "master"]], changelog: false, poll: false]
+    }
+    stage('build_jar') {
+        sh "./gradlew clean ${module}:bootJar"
+    }
+    stage('build_image') {
+        sh "cd ./${module} && docker-compose build"
+    }
+    stage('push_image') {
+        sh "cd ./${module} && docker-compose push"
+    }
+}
