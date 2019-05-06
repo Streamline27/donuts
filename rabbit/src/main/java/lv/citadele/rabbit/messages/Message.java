@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -15,4 +16,5 @@ public class Message
     @GeneratedValue
     private Long id;
     private String text;
+    private LocalDateTime dateTime;
 }

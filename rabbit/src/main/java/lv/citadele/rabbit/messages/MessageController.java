@@ -13,11 +13,8 @@ public class MessageController {
         this.dao = dao;
     }
 
-    @GetMapping("/message")
-    public Message save() {
-        Message message = Message.builder()
-                .text("Some text")
-                .build();
-        return dao.save(message);
+    @GetMapping("/messages")
+    public Iterable<Message> save() {
+        return dao.findFirst10ByOrderByDateTimeDesc();
     }
 }
