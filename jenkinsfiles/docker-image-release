@@ -1,0 +1,41 @@
+def configuration = [
+        SHOPS: [
+            moduleName: 'shops'
+        ],
+        PRODUCTS: [
+            moduleName: 'products'
+        ],
+        COMMERCE: [
+            moduleName: 'commerce'
+        ],
+        RABBIT: [
+            moduleName: 'rabbit'
+        ]
+]
+node {
+    def config = configuration[SERVICE]
+
+    stage('checkout') {
+        checkout scm: [$class           : 'GitSCM',
+                       userRemoteConfigs: [[url: 'https://github.com/Streamline27/donuts', credentialsId: 'Streamline27']],
+                       branches         : [[name: "master"]], changelog: false, poll: false]
+    }
+    stage('build_jar') {
+        sh "./gradlew clean ${module}:bootJar"
+    }
+    stage('docker-compose build') {
+        sh "cd ./${module} && docker-compose build"
+    }
+    stage('docker-compose push') {
+        sh "cd ./${module} && docker-compose push"
+    }
+    stage('docker-compose stop') {
+        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose stop'"
+    }
+    stage('docker-compose pull') {
+        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose pull'"
+    }
+    stage('docker-compose up') {
+        sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose up -d'"
+    }
+}

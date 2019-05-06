@@ -7,11 +7,6 @@ def configuration = [
 node {
     def config = configuration[SERVICE]
 
-    stage('checkout') {
-        checkout scm: [$class           : 'GitSCM',
-                       userRemoteConfigs: [[url: 'https://github.com/Streamline27/donuts', credentialsId: 'Streamline27']],
-                       branches         : [[name: "master"]], changelog: false, poll: false]
-    }
     stage('docker-compose stop') {
         sh "ssh vladja@${config.host} 'cd ${config.deployDir} && docker-compose stop'"
     }
