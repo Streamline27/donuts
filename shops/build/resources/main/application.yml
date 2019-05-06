@@ -1,5 +1,0 @@
-server:
-  port: 9780
-spring:
-  application:
-    name: shops

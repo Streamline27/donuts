@@ -12,7 +12,7 @@ public class RabbitApplication {
         SpringApplication.run(RabbitApplication.class, args);
     }
 
-    @GetMapping("/hello")
+    @GetMapping("/ping")
     public String hello() {
         return "Hello from Rabbit!";
     }
