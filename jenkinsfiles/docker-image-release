@@ -1,7 +1,8 @@
 def configuration = [
         RABBIT: [
             moduleName: 'rabbit',
-            host: '192.168.188.103'
+            host: '192.168.188.103',
+            deployDir: '/opt/java_apps/rabbit',
         ]
 ]
 node {
