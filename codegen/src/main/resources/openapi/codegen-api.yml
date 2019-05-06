@@ -1,0 +1,69 @@
+swagger: '2.0'
+info:
+  title: Sample Endpoint
+  description: >
+    This is a demo for a sample REST API.
+  version: 1.0.0
+schemes:
+  - https
+host: localhost
+basePath: /api
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /registration:
+    post:
+      operationId: registerMember
+      summary: Member Registration Endpoint.
+      description: >
+        This API is used to register memebrs.
+      tags:
+        - Member Registration
+      parameters:
+        - in: body
+          name: member_details
+          description: The details of the new member to be registered.
+          schema:
+            $ref: '#/definitions/MemberDetails'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Success'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Success:
+    properties:
+      memberID:
+        type: string
+        description: Successful operation.
+        example: "1234A"
+    required:
+      - memberID
+  Error:
+    properties:
+      error:
+        type: string
+        description: Invalid input.
+        example: "invalid_request"
+    required:
+      - error
+  MemberDetails:
+    type: array
+    items:
+      type: object
+      required:
+        - memberName
+        - memberAge
+      properties:
+        memberName:
+          type: string
+          example: Dewni
+        memberAge:
+          type: integer
+          example: 20

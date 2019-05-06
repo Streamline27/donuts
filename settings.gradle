@@ -3,4 +3,6 @@ include 'shops'
 include 'products'
 include 'commerce'
 include 'api'
+include 'codegen'
+include 'rabbit'
 

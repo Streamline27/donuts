@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: codegen
+server:
+  port: 9808
+  servlet:
+    context-path: /codegen

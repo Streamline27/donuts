@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: rabbit
+server:
+  port: 9010
+  servlet:
+    context-path: /rabbit
