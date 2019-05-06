@@ -14,6 +14,6 @@ public class RabbitApplication {
 
     @GetMapping("/hello")
     public String hello() {
-        return "Hello from Rabbit";
+        return "Hello from Rabbit!";
     }
 }
