@@ -3,6 +3,7 @@ package lv.citadele.rabbit.messages;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
@@ -18,8 +19,8 @@ public class MessageController {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @GetMapping("/message/create/{text}")
-    public String create(@PathParam("text") String text) {
+    @GetMapping("/messages/{text}")
+    public String create(@PathVariable("text") String text) {
         rabbitTemplate.convertAndSend(text);
         return "Great success";
     }
