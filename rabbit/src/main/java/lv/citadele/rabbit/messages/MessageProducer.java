@@ -27,7 +27,7 @@ public class MessageProducer {
     }
 
     private Message addDelayHeader(Message rabbitMsg) {
-        rabbitMsg.getMessageProperties().getHeaders().put("expiration", MESSAGE_DELAY_MILLIS.toString());
+        rabbitMsg.getMessageProperties().setExpiration(MESSAGE_DELAY_MILLIS.toString());
         return rabbitMsg;
     }
 }
