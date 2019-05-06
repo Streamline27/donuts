@@ -23,7 +23,7 @@ public class MessageProducer {
 
     public void send(String text) {
         LOG.info("Sending message:[{}]", text);
-        rabbitTemplate.convertAndSend("test.delayed-messages", "", text, this::addDelayHeader);
+        rabbitTemplate.convertAndSend("test.delay-oldschool", "", text, this::addDelayHeader);
     }
 
     private Message addDelayHeader(Message rabbitMsg) {
